@@ -20,18 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import UIKit
 import SwiftUI
 
-@main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+/// A popover that shows an enlarged preview of an emoji.
+struct MCEmojiPreviewPopup: View {
+    let emoji: MCEmoji
 
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UIHostingController(rootView: ContentView())
-        window?.makeKeyAndVisible()
-        return true
+    var body: some View {
+        Text(emoji.string)
+            .font(.system(size: 60))
+            .padding(16)
+            .background(Color.previewBackground)
     }
 }

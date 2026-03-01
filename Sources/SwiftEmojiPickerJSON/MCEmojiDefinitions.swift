@@ -1,4 +1,4 @@
-@_spi(JSON) import MCEmojiPicker
+@_spi(JSON) import SwiftEmojiPicker
 
 enum MCEmojiDefinitions {
     public static var defaultEmojis: [MCEmojiCategory] {

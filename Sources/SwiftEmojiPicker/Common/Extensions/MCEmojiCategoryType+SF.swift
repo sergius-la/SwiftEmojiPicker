@@ -20,29 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import UIKit
+import Foundation
 
-extension Double {
-    /// Angle `270°` in radians.
-    static let downAngle: CGFloat = 1.5 * Double.pi
-    /// Angle `180°` in radians.
-    static let leftAngle: CGFloat = Double.pi
-    /// Angle `90°` in radians.
-    static let upAngle: CGFloat = Double.pi / 2
-    /// Angle `0°` in radians.
-    static let rightAngle: CGFloat = 0.0
-    
-    /// Used to increase various sizes (fonts, heights and widths).
-    /// - Parameter isOnlyToIncrease: Responsible for whether the value will decrease if the screen size is smaller than the default.
-    func fit(isOnlyToIncrease: Bool = true) -> Double {
-        let defaultScreenSize = CGSize(width: 375, height: 812)
-        let currentScreenSize = UIScreen.main.bounds.size
-        // Check the type of the current device, if it is not a phone, return the original value.
-        guard UIDevice.current.userInterfaceIdiom == .phone else { return self }
-        var scale = 1.0
-        if isOnlyToIncrease && currentScreenSize.height > defaultScreenSize.height || !isOnlyToIncrease {
-            scale = currentScreenSize.height / defaultScreenSize.height
+extension MCEmojiCategoryType {
+    /// The SF Symbol name representing this emoji category.
+    var sfSymbolName: String {
+        switch self {
+        case .frequentlyUsed: return "clock"
+        case .people:         return "face.smiling"
+        case .nature:         return "leaf"
+        case .foodAndDrink:   return "fork.knife"
+        case .activity:       return "figure.walk"
+        case .travelAndPlaces: return "airplane"
+        case .objects:        return "lightbulb"
+        case .symbols:        return "number"
+        case .flags:          return "flag"
         }
-        return self * scale
     }
 }

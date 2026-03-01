@@ -20,34 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import UIKit
+import Foundation
 
-extension UIColor {
-    /// Background color for `MCEmojiPickerView`.
-    ///
-    /// This is a standard color from UIKit - `.systemGroupedBackground`.
-    static let popoverBackgroundColor = UIColor(
-        light:  UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.0),
-        dark: UIColor(red: 0.11, green: 0.11, blue: 0.12, alpha: 1.0)
-    )
-    /// Background color for `MCEmojiSkinTonePickerBackgroundView` and `MCEmojiPreviewView`.
-    ///
-    /// The colors were taken from similar iOS elements.
-    static let previewAndSkinToneBackgroundViewColor = UIColor(
-        light: UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0),
-        dark: UIColor(red: 0.45, green: 0.45, blue: 0.46, alpha: 1.0)
-    )
-}
-
-extension UIColor {
-    /// Adds support for dark and light interface style modes.
-    convenience init(light: UIColor, dark: UIColor) {
-        if #available(iOS 13.0, *) {
-            self.init(dynamicProvider: { trait in
-                trait.userInterfaceStyle == .dark ? dark : light
-            })
-        } else {
-            self.init(cgColor: light.cgColor)
-        }
+/// In SPM, the parameter `Bundle.module` is used to access resources, but in CocoaPods this is done differently.
+/// In order for the library to support both dependency managers, it is necessary to add a similar parameter to the CocoaPods version.
+///
+/// To do this, a check has been added before the extension.
+#if !SWIFT_PACKAGE
+extension Bundle {
+    /// Resources bundle.
+    static var module: Bundle {
+        let path = Bundle(for: MCUnicodeManager.self).path(
+            forResource: "SwiftEmojiPicker",
+            ofType: "bundle"
+        ) ?? ""
+        return Bundle(path: path) ?? Bundle.main
     }
 }
+#endif

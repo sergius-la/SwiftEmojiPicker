@@ -21,38 +21,42 @@
 // SOFTWARE.
 
 import Foundation
+import Combine
 
-/// Simple implementation of the observer pattern.
-final class Observable<T> {
-    
+/// View model for `MCEmojiPickerView`.
+final class MCEmojiPickerViewModel: ObservableObject {
+
+    // MARK: - Published Properties
+
+    /// The currently selected emoji.
+    @Published var selectedEmoji: MCEmoji? = nil
+    /// The index of the currently selected category in the category bar.
+    @Published var selectedCategoryIndex: Int = 0
+
     // MARK: - Public Properties
-    
-    public typealias Listener = (T) -> Void
-    
-    /// Holds the current value of the observable.
-    ///
-    /// The `didSet` block ensures that the `Listener` closure is called whenever the value changes.
-    public var value: T {
-        didSet {
-            listeners.forEach { $0(value) }
-        }
+
+    /// Whether the picker shows empty categories. Default false.
+    var showEmptyEmojiCategories: Bool = false
+
+    /// The filtered emoji categories (excluding empty ones if `showEmptyEmojiCategories` is false).
+    var emojiCategories: [MCEmojiCategory] {
+        allEmojiCategories.filter { showEmptyEmojiCategories || !$0.emojis.isEmpty }
     }
-    
+
     // MARK: - Private Properties
-    
-    /// Holds a closure that will be called whenever the value changes.
-    private var listeners = [Listener]()
-    
+
+    private var allEmojiCategories = [MCEmojiCategory]()
+
     // MARK: - Initializers
-    
-    init(value: T) {
-        self.value = value
+
+    init(unicodeManager: MCUnicodeManagerProtocol = MCUnicodeManager()) {
+        allEmojiCategories = unicodeManager.getEmojisForCurrentIOSVersion()
     }
-    
+
     // MARK: - Public Methods
-    
-    /// Allows you to set the `Listener` closure.
-    public func bind(_ listener: @escaping Listener) {
-        self.listeners.append(listener)
+
+    /// Returns the localized section name for the given section index.
+    func sectionHeaderName(for section: Int) -> String {
+        emojiCategories[section].categoryName
     }
 }

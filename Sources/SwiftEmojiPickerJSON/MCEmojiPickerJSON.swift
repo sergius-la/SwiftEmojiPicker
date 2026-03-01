@@ -6,13 +6,13 @@
 //
 
 import Foundation
-@_spi(JSON) import MCEmojiPicker
+@_spi(JSON) import SwiftEmojiPicker
 
 extension URL {
     static let emojiDefinitionsDir = URL(fileURLWithPath: #file)
         .deletingLastPathComponent()
         .deletingLastPathComponent()
-        .appendingPathComponent("MCEmojiPicker/Resources/EmojiDefinitions")
+        .appendingPathComponent("SwiftEmojiPicker/Resources/EmojiDefinitions")
 }
 
 @main

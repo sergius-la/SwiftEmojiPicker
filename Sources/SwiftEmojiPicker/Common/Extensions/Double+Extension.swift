@@ -22,8 +22,13 @@
 
 import Foundation
 
-/// This is a temporary enumeration that duplicates two cases from `UIPopoverArrowDirection'.
-public enum MCPickerArrowDirection: UInt {
-    case up = 1
-    case down = 2
+extension Double {
+    /// Angle `270°` in radians.
+    static let downAngle: Double = 1.5 * Double.pi
+    /// Angle `180°` in radians.
+    static let leftAngle: Double = Double.pi
+    /// Angle `90°` in radians.
+    static let upAngle: Double = Double.pi / 2
+    /// Angle `0°` in radians.
+    static let rightAngle: Double = 0.0
 }

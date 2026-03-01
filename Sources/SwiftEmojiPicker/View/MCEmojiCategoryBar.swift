@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright © 2023 Ivan Izyumkin
+// Copyright © 2022 Ivan Izyumkin
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,8 +20,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-extension NSNotification.Name {
-    static let MCEmojiPickerDidDisappear = NSNotification.Name("MCEmojiPickerDidDisappear")
+/// Bottom tab bar showing emoji category icons using SF Symbols.
+struct MCEmojiCategoryBar: View {
+    let categories: [MCEmojiCategoryType]
+    @Binding var selectedIndex: Int
+    var tintColor: Color
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(categories.indices, id: \.self) { i in
+                Button {
+                    selectedIndex = i
+                } label: {
+                    Image(systemName: categories[i].sfSymbolName)
+                        .foregroundColor(selectedIndex == i ? tintColor : .secondary)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(.horizontal, 16)
+        .background(Color.pickerBackground)
+    }
 }

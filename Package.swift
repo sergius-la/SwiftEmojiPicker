@@ -3,19 +3,19 @@
 import PackageDescription
 
 let package = Package(
-    name: "MCEmojiPicker",
+    name: "SwiftEmojiPicker",
     defaultLocalization: "en",
-    platforms: [.iOS("11.1")],
+    platforms: [.iOS("14.0"), .macOS("11.0")],
     products: [
-        .executable(name: "MCEmojiPickerJSON", targets: ["MCEmojiPickerJSON"]),
-        .library(name: "MCEmojiPicker", targets: ["MCEmojiPicker"])
+        .executable(name: "SwiftEmojiPickerJSON", targets: ["SwiftEmojiPickerJSON"]),
+        .library(name: "SwiftEmojiPicker", targets: ["SwiftEmojiPicker"])
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "MCEmojiPicker",
+            name: "SwiftEmojiPicker",
             dependencies: [],
-            path: "Sources/MCEmojiPicker",
+            path: "Sources/SwiftEmojiPicker",
             resources: [
                 .copy("Resources/EmojiDefinitions/travellingAndPlaces.json"),
                 .copy("Resources/EmojiDefinitions/symbols.json"),
@@ -27,7 +27,7 @@ let package = Package(
                 .copy("Resources/EmojiDefinitions/activities.json"),
             ]
         ),
-        .executableTarget(name: "MCEmojiPickerJSON", dependencies: ["MCEmojiPicker"])
+        .executableTarget(name: "SwiftEmojiPickerJSON", dependencies: ["SwiftEmojiPicker"])
     ],
     swiftLanguageVersions: [.v4_2]
 )

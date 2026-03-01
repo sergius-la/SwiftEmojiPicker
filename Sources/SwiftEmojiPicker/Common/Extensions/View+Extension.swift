@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright © 2022 Ivan Izyumkin
+// Copyright © 2023 Ivan Izyumkin
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import UIKit
+import SwiftUI
 
-extension UICollectionReusableView {
-    /// Converts the class name to a string.
-    static var reuseIdentifier: String {
-        return String(describing: self)
+extension View {
+    /// Presents an emoji picker as a popover anchored to this view.
+    ///
+    /// - Parameters:
+    ///   - isPresented: Controls whether the picker is shown.
+    ///   - selectedEmoji: Binding updated with the chosen emoji string.
+    ///   - selectedEmojiCategoryTintColor: Highlight color for the active category tab. Default `.blue`.
+    ///   - isDismissAfterChoosing: Whether the picker dismisses after an emoji is selected. Default `true`.
+    public func emojiPicker(
+        isPresented: Binding<Bool>,
+        selectedEmoji: Binding<String>,
+        selectedEmojiCategoryTintColor: Color = .blue,
+        isDismissAfterChoosing: Bool = true
+    ) -> some View {
+        self.popover(isPresented: isPresented) {
+            EmojiPickerView(
+                selectedEmoji: selectedEmoji,
+                selectedEmojiCategoryTintColor: selectedEmojiCategoryTintColor,
+                isDismissAfterChoosing: isDismissAfterChoosing
+            )
+        }
     }
 }

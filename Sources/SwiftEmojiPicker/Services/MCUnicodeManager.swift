@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 import Foundation
-import UIKit.UIDevice
 
 /// Protocol for the `MCUnicodeManager`.
 protocol MCUnicodeManagerProtocol {
@@ -42,19 +41,19 @@ extension MCEmojiCategoryType {
 
 /// The class is responsible for getting a relevant set of emojis for iOS version.
 final class MCUnicodeManager: MCUnicodeManagerProtocol {
-    
+
     /// The maximum number of frequently used emojis to include in the `frequentlyUsed` category.
     public let maxFrequentlyUsedEmojisCount: Int
-    
+
     // MARK: - Initializers
-    
+
     public init(maxFrequentlyUsedEmojis: Int = 30) {
         self.maxFrequentlyUsedEmojisCount = maxFrequentlyUsedEmojis
     }
-    
+
     // MARK: - Public Methods
-    
-    /// Returns all emojis available for the current device's iOS version.
+
+    /// Returns all emojis available for the current device's OS version.
     func getEmojisForCurrentIOSVersion() -> [MCEmojiCategory] {
         let frequentlyUsedEmojis: MCEmojiCategory = .init(
             type: .frequentlyUsed,
@@ -62,7 +61,7 @@ final class MCUnicodeManager: MCUnicodeManagerProtocol {
         )
         return [frequentlyUsedEmojis] + Self.defaultEmojis
     }
-    
+
     // MARK: - Private Methods
 
     /// Returns the top n (`maxFrequentlyUsedEmojis`) emojis by usage, for emojis with a `usageCount` > 0.
@@ -85,11 +84,14 @@ final class MCUnicodeManager: MCUnicodeManagerProtocol {
     }
 
     // MARK: - Private Properties
-    
-    /// The maximum available emoji version for the current iOS version.
+
+    /// The maximum available emoji version for the current OS version.
     private static let maxCurrentAvailableEmojiVersion: Double = {
-        let currentIOSVersion = (UIDevice.current.systemVersion as NSString).floatValue
-        switch currentIOSVersion {
+        let v = ProcessInfo.processInfo.operatingSystemVersion
+        #if os(iOS)
+        let versionString = "\(v.majorVersion).\(v.minorVersion)"
+        let versionFloat = (versionString as NSString).floatValue
+        switch versionFloat {
         case 12.1...13.1:
             return 11.0
         case 13.2...14.1:
@@ -105,6 +107,10 @@ final class MCUnicodeManager: MCUnicodeManagerProtocol {
         default:
             return 5.0
         }
+        #else
+        // macOS always gets the latest emoji set
+        return 15.0
+        #endif
     }()
 
     /// Loads the emoji category from the type-specific JSON file in the resources directory.

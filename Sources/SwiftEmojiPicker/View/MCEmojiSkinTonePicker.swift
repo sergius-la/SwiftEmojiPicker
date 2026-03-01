@@ -20,21 +20,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-/// In SPM, the parameter `Bundle.module` is used to access resources, but in CocoaPods this is done differently.
-/// In order for the library to support both dependency managers, it is necessary to add a similar parameter to the CocoaPods version.
-///
-/// To do this, a check has been added before the extension.
-#if !SWIFT_PACKAGE
-extension Bundle {
-    /// Resources bundle.
-    static var module: Bundle {
-        let path = Bundle(for: MCUnicodeManager.self).path(
-            forResource: "MCEmojiPicker",
-            ofType: "bundle"
-        ) ?? ""
-        return Bundle(path: path) ?? Bundle.main
+/// A popover that presents all available skin tone variants for an emoji.
+struct MCEmojiSkinTonePicker: View {
+    let emoji: MCEmoji
+    let onSelect: (Int) -> Void
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(MCEmojiSkinTone.allCases, id: \.rawValue) { skinTone in
+                Button {
+                    onSelect(skinTone.rawValue)
+                } label: {
+                    Text(emojiString(for: skinTone))
+                        .font(.system(size: 29))
+                        .padding(10)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(4)
+        .background(Color.previewBackground)
+    }
+
+    private func emojiString(for skinTone: MCEmojiSkinTone) -> String {
+        guard skinTone != .none, let skinKey = skinTone.skinKey else {
+            return emoji.emojiKeys.emoji()
+        }
+        var keys = emoji.emojiKeys
+        keys.insert(skinKey, at: 1)
+        return keys.emoji()
     }
 }
-#endif

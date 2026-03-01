@@ -20,108 +20,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import UIKit
-import MCEmojiPicker
+import SwiftUI
+import SwiftEmojiPicker
 
-class ViewController: UIViewController {
-    
-    // MARK: - Private Properties
-    
-    private lazy var emojiButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 12
-        if #available(iOS 13.0, *) {
-            button.backgroundColor = .systemGray4
-            button.layer.cornerCurve = .continuous
-        } else {
-            button.backgroundColor = UIColor(red: 209.0, green: 209.0, blue: 214.0, alpha: 1.0)
+struct ContentView: View {
+    @State private var selectedEmoji = "🙋🏻‍♂️"
+    @State private var showPicker = false
+
+    var body: some View {
+        ZStack {
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea()
+
+            Button {
+                showPicker = true
+            } label: {
+                Text(selectedEmoji)
+                    .font(.system(size: 65))
+                    .frame(width: 88, height: 88)
+                    .background(Color(.systemGray4))
+                    .cornerRadius(12)
+            }
+            .buttonStyle(.plain)
+            .emojiPicker(isPresented: $showPicker, selectedEmoji: $selectedEmoji)
         }
-        button.setTitle("🙋🏻‍♂️", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 65)
-        button.addTarget(self, action: #selector(emojiButtonAction(_:)), for: .touchUpInside)
-        button.addGestureRecognizer(
-            UIPanGestureRecognizer(
-                target: self,
-                action: #selector(didPanEmojiButton(_:))
-            )
-        )
-        return button
-    }()
-    
-    // MARK: - Initializers
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        setupBackgroundColor()
-        setupEmojiButtonLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Life Cycle
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showHintAlertIfNeeded()
-    }
-    
-    // MARK: - Actions
-    
-    @objc private func emojiButtonAction(_ sender: UIButton) {
-        let viewController = MCEmojiPickerViewController()
-        viewController.delegate = self
-        viewController.sourceView = sender
-        present(viewController, animated: true)
-    }
-    
-    @objc private func didPanEmojiButton(
-        _ gestureRecognizer: UIPanGestureRecognizer
-    ) {
-        emojiButton.center = gestureRecognizer.location(in: view)
-    }
-    
-    // MARK: - Private Methods
-    
-    private func showHintAlertIfNeeded() {
-        let firstLaunchKey = "firstLaunch"
-        guard !UserDefaults.standard.bool(forKey: firstLaunchKey) else { return }
-        UserDefaults.standard.set(true, forKey: firstLaunchKey)
-        let hintAlert = UIAlertController(
-            title: NSLocalizedString("hintAlertTitle", comment: ""),
-            message: NSLocalizedString("hintAlertMessage", comment: ""),
-            preferredStyle: .alert
-        )
-        hintAlert.addAction(.init(title: "OK", style: .default))
-        present(hintAlert, animated: true)
-    }
-    
-    private func setupBackgroundColor() {
-        if #available(iOS 13.0, *) {
-            view.backgroundColor = .systemGroupedBackground
-        } else {
-            view.backgroundColor = .white
-        }
-    }
-    
-    private func setupEmojiButtonLayout() {
-        view.addSubview(emojiButton)
-        
-        NSLayoutConstraint.activate([
-            emojiButton.widthAnchor.constraint(equalToConstant: 88),
-            emojiButton.heightAnchor.constraint(equalToConstant: 88),
-            emojiButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emojiButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -200)
-        ])
-    }
-}
-
-// MARK: - MCEmojiPickerDelegate
-
-extension ViewController: MCEmojiPickerDelegate {
-    func didGetEmoji(emoji: String) {
-        emojiButton.setTitle(emoji, for: .normal)
     }
 }
