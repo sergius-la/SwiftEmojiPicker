@@ -23,7 +23,7 @@
 import SwiftUI
 
 extension View {
-    /// Presents an emoji picker as a popover anchored to this view.
+    /// Presents an emoji picker as a bottom sheet anchored to this view.
     ///
     /// - Parameters:
     ///   - isPresented: Controls whether the picker is shown.
@@ -36,12 +36,14 @@ extension View {
         selectedEmojiCategoryTintColor: Color = .blue,
         isDismissAfterChoosing: Bool = true
     ) -> some View {
-        self.popover(isPresented: isPresented) {
+        self.sheet(isPresented: isPresented) {
             EmojiPickerView(
                 selectedEmoji: selectedEmoji,
                 selectedEmojiCategoryTintColor: selectedEmojiCategoryTintColor,
                 isDismissAfterChoosing: isDismissAfterChoosing
             )
+            .presentationDetents([.height(380)])
+            .presentationDragIndicator(.visible)
         }
     }
 }

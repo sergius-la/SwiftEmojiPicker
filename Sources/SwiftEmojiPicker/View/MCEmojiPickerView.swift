@@ -95,7 +95,6 @@ public struct EmojiPickerView: View {
             )
         }
         .background(Color.pickerBackground)
-        .frame(width: 340, height: 380)
     }
 
     private func handleSelection(_ emoji: MCEmoji) {
