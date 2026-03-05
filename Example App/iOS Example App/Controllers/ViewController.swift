@@ -26,23 +26,69 @@ import SwiftEmojiPicker
 struct ContentView: View {
     @State private var selectedEmoji = "🙋🏻‍♂️"
     @State private var showPicker = false
+    @State private var tintColor: Color = .blue
+    @State private var dismissAfterChoosing = true
 
     var body: some View {
-        ZStack {
-            Color(.systemGroupedBackground)
-                .ignoresSafeArea()
+        NavigationView {
+            List {
+                // MARK: Picker trigger
+                Section {
+                    HStack {
+                        Spacer()
+                        Button {
+                            showPicker = true
+                        } label: {
+                            Text(selectedEmoji)
+                                .font(.system(size: 72))
+                                .frame(width: 100, height: 100)
+                                .background(Color(.systemGray5))
+                                .cornerRadius(16)
+                        }
+                        .buttonStyle(.plain)
+                        .emojiPicker(
+                            isPresented: $showPicker,
+                            selectedEmoji: $selectedEmoji,
+                            selectedEmojiCategoryTintColor: tintColor,
+                            isDismissAfterChoosing: dismissAfterChoosing
+                        )
+                        Spacer()
+                    }
+                    .padding(.vertical, 8)
+                } header: {
+                    Text("Tap to pick an emoji")
+                } footer: {
+                    Text("Selected: \(selectedEmoji)")
+                }
 
-            Button {
-                showPicker = true
-            } label: {
-                Text(selectedEmoji)
-                    .font(.system(size: 65))
-                    .frame(width: 88, height: 88)
-                    .background(Color(.systemGray4))
-                    .cornerRadius(12)
+                // MARK: Options
+                Section("Options") {
+                    Toggle("Dismiss after choosing", isOn: $dismissAfterChoosing)
+
+                    HStack {
+                        Text("Tint color")
+                        Spacer()
+                        ColorPicker("", selection: $tintColor)
+                            .labelsHidden()
+                    }
+                }
+
+                // MARK: Embedded picker
+                Section("Embedded (no popover)") {
+                    EmojiPickerView(
+                        selectedEmoji: $selectedEmoji,
+                        selectedEmojiCategoryTintColor: tintColor,
+                        isDismissAfterChoosing: false
+                    )
+                    .frame(height: 320)
+                }
             }
-            .buttonStyle(.plain)
-            .emojiPicker(isPresented: $showPicker, selectedEmoji: $selectedEmoji)
+            .navigationTitle("SwiftEmojiPicker")
+            .navigationViewStyle(.stack)
         }
     }
+}
+
+#Preview {
+    ContentView()
 }

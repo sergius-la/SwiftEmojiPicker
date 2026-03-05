@@ -22,6 +22,18 @@
 
 import SwiftUI
 
+private struct EmojiPickerSheetModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 16.0, macOS 13.0, *) {
+            content
+                .presentationDetents([.height(380)])
+                .presentationDragIndicator(.visible)
+        } else {
+            content
+        }
+    }
+}
+
 extension View {
     /// Presents an emoji picker as a bottom sheet anchored to this view.
     ///
@@ -42,8 +54,7 @@ extension View {
                 selectedEmojiCategoryTintColor: selectedEmojiCategoryTintColor,
                 isDismissAfterChoosing: isDismissAfterChoosing
             )
-            .presentationDetents([.height(380)])
-            .presentationDragIndicator(.visible)
+            .modifier(EmojiPickerSheetModifier())
         }
     }
 }

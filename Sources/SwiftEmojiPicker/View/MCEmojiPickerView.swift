@@ -105,3 +105,14 @@ public struct EmojiPickerView: View {
         }
     }
 }
+
+#Preview {
+    PreviewWrapper()
+}
+
+private struct PreviewWrapper: View {
+    @State var emoji = "😀"
+    var body: some View {
+        EmojiPickerView(selectedEmoji: $emoji)
+    }
+}
