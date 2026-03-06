@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright © 2022 Ivan Izyumkin
+// Copyright © 2026 Sergey Likhanov
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ import SwiftUI
 /// ```
 public struct EmojiPickerView: View {
 
-    @StateObject private var viewModel = MCEmojiPickerViewModel()
+    @StateObject private var viewModel = EmojiPickerViewModel()
     @Binding public var selectedEmoji: String
 
     public var selectedEmojiCategoryTintColor: Color
@@ -79,7 +79,7 @@ public struct EmojiPickerView: View {
                         }
                     }
                 }
-                .onChange(of: viewModel.selectedCategoryIndex) { index in
+                .onChange(of: viewModel.selectedCategoryIndex) { _, index in
                     withAnimation {
                         proxy.scrollTo(index, anchor: .top)
                     }

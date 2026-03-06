@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright © 2022 Ivan Izyumkin
+// Copyright © 2026 Sergey Likhanov
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ extension MCEmojiCategoryType {
     var emojiCategoryTitle: String {
         NSLocalizedString(
             self.localizeKey,
-            tableName: "MCEmojiPickerLocalizable",
+            tableName: "SwiftEmojiPickerLocalizable",
             bundle: .module,
             comment: ""
         )
@@ -88,29 +88,7 @@ final class MCUnicodeManager: MCUnicodeManagerProtocol {
     /// The maximum available emoji version for the current OS version.
     private static let maxCurrentAvailableEmojiVersion: Double = {
         let v = ProcessInfo.processInfo.operatingSystemVersion
-        #if os(iOS)
-        let versionString = "\(v.majorVersion).\(v.minorVersion)"
-        let versionFloat = (versionString as NSString).floatValue
-        switch versionFloat {
-        case 12.1...13.1:
-            return 11.0
-        case 13.2...14.1:
-            return 12.0
-        case 14.2...14.4:
-            return 13.0
-        case 14.5...15.3:
-            return 13.1
-        case 15.4...16.3:
-            return 14.0
-        case 16.4...:
-            return 15.0
-        default:
-            return 5.0
-        }
-        #else
-        // macOS always gets the latest emoji set
         return 15.0
-        #endif
     }()
 
     /// Loads the emoji category from the type-specific JSON file in the resources directory.

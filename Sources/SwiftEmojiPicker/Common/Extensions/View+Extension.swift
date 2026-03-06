@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright © 2023 Ivan Izyumkin
+// Copyright © 2026 Sergey Likhanov
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,13 +24,9 @@ import SwiftUI
 
 private struct EmojiPickerSheetModifier: ViewModifier {
     func body(content: Content) -> some View {
-        if #available(iOS 16.0, macOS 13.0, *) {
-            content
-                .presentationDetents([.height(380)])
-                .presentationDragIndicator(.visible)
-        } else {
-            content
-        }
+        content
+            .presentationDetents([.height(380)])
+            .presentationDragIndicator(.visible)
     }
 }
 

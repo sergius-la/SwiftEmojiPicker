@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright © 2022 Ivan Izyumkin
+// Copyright © 2026 Sergey Likhanov
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@ import Foundation
 import Combine
 
 /// View model for `MCEmojiPickerView`.
-final class MCEmojiPickerViewModel: ObservableObject {
+final class EmojiPickerViewModel: ObservableObject {
 
     // MARK: - Published Properties
 

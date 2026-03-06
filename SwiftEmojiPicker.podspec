@@ -10,9 +10,9 @@ Pod::Spec.new do |s|
   s.source_files = 'Sources/SwiftEmojiPicker/**/*.swift'
   s.resource_bundle = { "SwiftEmojiPicker" => [
     "Sources/SwiftEmojiPicker/Resources/EmojiDefinitions/*.json",
-    "Sources/SwiftEmojiPicker/Resources/Localization/**/*.strings"
+    "Sources/SwiftEmojiPicker/Resources/Localization/**/SwiftEmojiPickerLocalizable.strings"
   ] }
   s.swift_version = '5.9'
-  s.ios.deployment_target = '14.0'
-  s.osx.deployment_target = '11.0'
+  s.ios.deployment_target = '26.0'
+  s.osx.deployment_target = '26.0'
 end
