@@ -32,15 +32,28 @@ final class EmojiPickerViewModel: ObservableObject {
     @Published var selectedEmoji: MCEmoji? = nil
     /// The index of the currently selected category in the category bar.
     @Published var selectedCategoryIndex: Int = 0
+    /// The current search query.
+    @Published var searchText: String = ""
 
     // MARK: - Public Properties
 
     /// Whether the picker shows empty categories. Default false.
     var showEmptyEmojiCategories: Bool = false
 
+    /// Whether search is active.
+    var isSearching: Bool { !searchText.isEmpty }
+
     /// The filtered emoji categories (excluding empty ones if `showEmptyEmojiCategories` is false).
     var emojiCategories: [MCEmojiCategory] {
         allEmojiCategories.filter { showEmptyEmojiCategories || !$0.emojis.isEmpty }
+    }
+
+    /// Emojis matching the current search query across all categories.
+    var searchResults: [MCEmoji] {
+        let query = searchText.lowercased()
+        return allEmojiCategories.flatMap(\.emojis).filter {
+            $0.searchKey.lowercased().contains(query)
+        }
     }
 
     // MARK: - Private Properties

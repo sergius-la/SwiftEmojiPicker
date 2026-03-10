@@ -127,4 +127,4 @@ EmojiPickerView(selectedEmoji: $selectedEmoji)
 - [x] Skin tone picker
 - [x] Frequently used
 - [x] iOS 14+ and macOS 11+ via pure SwiftUI
-- [ ] Search bar
+- [x] Search bar
