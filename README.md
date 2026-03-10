@@ -1,8 +1,7 @@
 # SwiftEmojiPicker
 
-[![Version](https://img.shields.io/cocoapods/v/SwiftEmojiPicker.svg?style=flat)](https://cocoapods.org/pods/SwiftEmojiPicker)
-[![License](https://img.shields.io/cocoapods/l/SwiftEmojiPicker.svg?style=flat)](https://cocoapods.org/pods/SwiftEmojiPicker)
-[![Platform](https://img.shields.io/cocoapods/p/SwiftEmojiPicker.svg?style=flat)](https://cocoapods.org/pods/SwiftEmojiPicker)
+[![License](https://img.shields.io/github/license/sergius-la/SwiftEmojiPicker.svg?style=flat)](https://github.com/sergius-la/SwiftEmojiPicker/blob/main/LICENSE)
+[![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20macOS-lightgrey.svg?style=flat)](https://github.com/sergius-la/SwiftEmojiPicker)
 
 <p float="left">
 <img src="https://user-images.githubusercontent.com/50948518/216799717-25b3e4ed-b4c5-4166-91a2-72374b0564f9.gif" width="280">
@@ -26,7 +25,6 @@ Fork of [MCEmojiPicker](https://github.com/izyumkin/MCEmojiPicker), rewritten fr
 - [Requirements](#requirements)
 - [Installation](#installation)
     - [Swift Package Manager](#swift-package-manager)
-    - [CocoaPods](#cocoapods)
     - [Manually](#manually)
 - [Quick Start](#quick-start)
 - [Usage](#usage)
@@ -38,9 +36,9 @@ Fork of [MCEmojiPicker](https://github.com/izyumkin/MCEmojiPicker), rewritten fr
 
 ## Requirements
 
-- Swift 5.9+
-- iOS 14.0+
-- macOS 11.0+
+- Swift 5.10+
+- iOS 26.0+
+- macOS 26.0+
 
 ## Installation
 
@@ -49,21 +47,15 @@ Fork of [MCEmojiPicker](https://github.com/izyumkin/MCEmojiPicker), rewritten fr
 In Xcode go to `File → Add Package Dependencies` and enter:
 
 ```
-https://github.com/izyumkin/SwiftEmojiPicker
+https://github.com/sergius-la/SwiftEmojiPicker
 ```
 
 Or add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/izyumkin/SwiftEmojiPicker", from: "1.0.0")
+    .package(url: "https://github.com/sergius-la/SwiftEmojiPicker", from: "2.0.0")
 ]
-```
-
-### CocoaPods
-
-```ruby
-pod 'SwiftEmojiPicker'
 ```
 
 ### Manually
