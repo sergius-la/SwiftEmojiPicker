@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "SwiftEmojiPicker",
     defaultLocalization: "en",
-    platforms: [.iOS("26.0"), .macOS("26.0")],
+    platforms: [.iOS("17.0"), .macOS("14.0")],
     products: [
         .executable(name: "SwiftEmojiPickerJSON", targets: ["SwiftEmojiPickerJSON"]),
         .library(name: "SwiftEmojiPicker", targets: ["SwiftEmojiPicker"])
