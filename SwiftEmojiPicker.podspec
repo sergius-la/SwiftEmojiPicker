@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'SwiftEmojiPicker'
-  s.version = '2.1.0'
+  s.version = '2.2.1'
   s.license = 'MIT'
   s.summary = 'SwiftUI emoji picker for iOS and macOS'
   s.homepage = 'https://github.com/sergius-la/SwiftEmojiPicker'
@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
     "Sources/SwiftEmojiPicker/Resources/Localization/**/SwiftEmojiPickerLocalizable.strings"
   ] }
   s.swift_version = '5.9'
-  s.ios.deployment_target = '26.0'
-  s.osx.deployment_target = '26.0'
+  s.ios.deployment_target = '17.0'
+  s.osx.deployment_target = '14.0'
 end
